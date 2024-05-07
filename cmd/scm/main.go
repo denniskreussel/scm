@@ -1,9 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/denniskreussel/scm/config"
+)
 
-import "github.com/denniskreussel/scm/internal/helpers"
+func init() {
+	// This will be executed before main
+}
 
 func main() {
-	fmt.Println("Hello, world!", helpers.Add(1, 2))
+	// This is the main entry point
+	cfg, err := config.ParseLocalCfgFile("dev/scm.config.yaml")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Config: %+v\n", cfg)
 }
