@@ -22,7 +22,9 @@ var (
 func init() {
 	initCmdOptions()
 	logPaths := strings.Split(cmdOps.LogPaths, ",")
-	fmt.Printf("LogPaths: %+v\n", logPaths)
+	util.InitLogger(logPaths)
+	util.SetLogLevel(cmdOps.LogLevel)
+	util.Logger.Info(getVersion())
 	if cmdOps.ShowVer {
 		os.Exit(0)
 	}
@@ -66,4 +68,8 @@ func initCmdOptions() {
 	flag.StringVar(&cmdOps.LocalCfgFile, "local-cfg-file", cmdOps.LocalCfgFile, "local config file")
 
 	flag.Parse()
+}
+
+func getVersion() string {
+	return fmt.Sprintf("version %s, commit %s, date %s, builtBy %s, pid %v", version, commit, date, builtBy, os.Getpid())
 }
