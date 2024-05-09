@@ -15,8 +15,7 @@ var (
 	date    = "None"
 	builtBy = "None"
 
-	cmdOps   util.CmdOptions
-	httpAddr string
+	cmdOps util.CmdOptions
 )
 
 func init() {
