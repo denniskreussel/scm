@@ -60,6 +60,20 @@ func SetLogLevel(newLogLevel string) {
 	}
 }
 
+func SetLogTrace(enabled bool) {
+	logTrace = enabled
+}
+
 func GenTraceId() string {
 	return uuid.NewString()
+}
+
+func LogTrace(traceId string, kind string, fields ...zapcore.Field) {
+	if logTrace {
+		allFields := []zapcore.Field{
+			zap.String("trace_id", traceId),
+			zap.String("trace_kind", kind)}
+		allFields = append(allFields, fields...)
+		Logger.Info("===trace===", allFields...)
+	}
 }
