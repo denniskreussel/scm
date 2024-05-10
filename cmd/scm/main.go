@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/denniskreussel/scm/config"
+	"github.com/denniskreussel/scm/internal/server"
 	"github.com/denniskreussel/scm/internal/util"
 	"os"
 	"strings"
@@ -36,6 +37,13 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("Config: %+v\n", cfg)
+
+	sv := server.NewServer(cfg.Port)
+
+	err = sv.ListenAndServe()
+	if err != nil {
+		panic("cannot start server")
+	}
 }
 
 func initCmdOptions() {

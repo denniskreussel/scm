@@ -9,6 +9,7 @@ import (
 type Config struct {
 	LogLevel string
 	LogTrace bool
+	Port     int
 }
 
 func ParseLocalCfgFile(cfgPath string) (cfg *Config, err error) {

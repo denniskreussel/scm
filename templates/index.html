@@ -1,0 +1,20 @@
+<html>
+
+<head>
+    <title>SCM</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+
+<body>
+<div>
+    <h1>SCM</h1>
+    <div id="content-container">
+        <P>Test</P>
+        {{ block "Content" . }}
+            <p>{{ .Content }}</p>
+        {{ end }}
+    </div>
+</div>
+</body>
+
+</html>
