@@ -11,3 +11,4 @@ go.work
 .idea
 dist
 bin
+coverage.out
