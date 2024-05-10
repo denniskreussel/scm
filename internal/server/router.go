@@ -30,10 +30,10 @@ func (s *Server) indexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 	err := tmpl.Execute(w, nil)
-	err = tmpl.ExecuteTemplate(w, "Content", data)
 	if err != nil {
 		log.Fatalf("Could not execute template. Err: %v", err)
 	}
+	err = tmpl.ExecuteTemplate(w, "Content", data)
 	if err != nil {
 		log.Fatalf("Could not execute template. Err: %v", err)
 	}
