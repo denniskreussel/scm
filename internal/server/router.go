@@ -28,7 +28,8 @@ func (s *Server) indexHandler(w http.ResponseWriter, r *http.Request) {
 	data := IndexData{
 		Content: "Hello World",
 	}
-	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+	tmpl := template.Must(template.ParseFiles("templates/_base.html"))
+	tmpl = template.Must(tmpl.ParseFiles("templates/index.html"))
 	err := tmpl.Execute(w, nil)
 	if err != nil {
 		log.Fatalf("Could not execute template. Err: %v", err)
