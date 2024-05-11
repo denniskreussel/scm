@@ -2,8 +2,10 @@
 package oauth
 
 import (
+	"errors"
 	"fmt"
 	"github.com/denniskreussel/scm/internal/jwt"
+	"github.com/denniskreussel/scm/internal/util"
 	"github.com/gorilla/csrf"
 	"net/http"
 	"net/url"
@@ -71,7 +73,7 @@ func (a *OAuth) CallBack() http.HandlerFunc {
 		code := val.Get("code")
 		csrfToken, p, ok := strings.Cut(val.Get("state"), ",")
 		if !ok {
-			log.Error().Msg(fmt.Sprintf("invalid state: %s", val.Get("state")))
+			util.Logger.Error(fmt.Sprintf("invalid state: %s", val.Get("state")))
 			http.Error(
 				w,
 				fmt.Sprintf("invalid state: %s", val.Get("state")),
@@ -81,7 +83,7 @@ func (a *OAuth) CallBack() http.HandlerFunc {
 		}
 
 		expectedCSRF, err := r.Cookie("csrf_token")
-		if err == http.ErrNoCookie {
+		if errors.Is(err, http.ErrNoCookie) {
 			http.Error(w, "no csrf cookie error", http.StatusUnauthorized)
 			return
 		}
